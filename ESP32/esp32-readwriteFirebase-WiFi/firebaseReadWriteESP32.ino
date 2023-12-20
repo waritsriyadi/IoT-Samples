@@ -19,14 +19,14 @@
 #include "addons/RTDBHelper.h"
 
 // Insert your network credentials
-#define WIFI_SSID "Meh"
-#define WIFI_PASSWORD "PlkQas132"
+#define WIFI_SSID "YOUR_WIFI_SSID"
+#define WIFI_PASSWORD "YOUR_WIFI_PASSWORD"
 
 // Insert Firebase project API Key
-#define API_KEY "AIzaSyCW65ZdXgfyUwJha3N8IxEgYC8HbXTJD80"
+#define API_KEY "YOUR_FIREBASE_API_KEY" //example: AIzaSyCUwJha3N8IxEgbXTJD80
 
 // Insert RTDB URLefine the RTDB URL */
-#define DATABASE_URL "https://mushy-gps-default-rtdb.asia-southeast1.firebasedatabase.app/"
+#define DATABASE_URL "YOUR_DATABASE_URL" //example: https://my-gps-default-rtdb.asia-southeast1.firebasedatabase.app/
 
 //Define Firebase Data object
 FirebaseData fbdo;
@@ -77,7 +77,7 @@ void loop() {
   if (Firebase.ready() && signupOK && (millis() - sendDataPrevMillis > 15000 || sendDataPrevMillis == 0)) {
     sendDataPrevMillis = millis();
     // Write an Int number on the database path test/int
-    if (Firebase.RTDB.setInt(&fbdo, "gps/lat", count)) {
+    if (Firebase.RTDB.setInt(&fbdo, "gps/lat", count)) { // SET YOUR DATABASE PATH HERE "gps/lat" and the value
       Serial.println("PASSED");
       Serial.println("PATH: " + fbdo.dataPath());
       Serial.println("TYPE: " + fbdo.dataType());
@@ -88,7 +88,7 @@ void loop() {
     count++;
 
     // Write an Float number on the database path gps/lng
-    if (Firebase.RTDB.setFloat(&fbdo, "gps/lng", 125 + random(0, 100))) {
+    if (Firebase.RTDB.setFloat(&fbdo, "gps/lng", 125 + random(0, 100))) { // SET YOUR DATABASE PATH HERE "gps/lng" and the value
       Serial.println("PASSED");
       Serial.println("PATH: " + fbdo.dataPath());
       Serial.println("TYPE: " + fbdo.dataType());
@@ -98,7 +98,7 @@ void loop() {
     }
 
     // Write an Float number on the database path gps/lng
-    if (Firebase.RTDB.setFloat(&fbdo, "gps/spd", 15 + random(0, 100))) {
+    if (Firebase.RTDB.setFloat(&fbdo, "gps/spd", 15 + random(0, 100))) { // SET YOUR DATABASE PATH HERE "gps/spd" and the value
       Serial.println("PASSED");
       Serial.println("PATH: " + fbdo.dataPath());
       Serial.println("TYPE: " + fbdo.dataType());
@@ -109,7 +109,7 @@ void loop() {
 
     //read data
     Serial.println("================== READ ===================");
-    if (Firebase.RTDB.getInt(&fbdo, "/gps/lat")) {
+    if (Firebase.RTDB.getInt(&fbdo, "/gps/lat")) {                     // SET YOUR DATABASE PATH HERE "gps/lat" and the typeData
       if (fbdo.dataType() == "int") {
         intValue = fbdo.intData();
         Serial.println(intValue);
@@ -118,7 +118,7 @@ void loop() {
       Serial.println(fbdo.errorReason());
     }
 
-    if (Firebase.RTDB.getInt(&fbdo, "/gps/lng")) {
+    if (Firebase.RTDB.getInt(&fbdo, "/gps/lng")) {                     // SET YOUR DATABASE PATH HERE "gps/lat" and the typeData
       if (fbdo.dataType() == "int") {
         intValue = fbdo.intData();
         Serial.println(intValue);
@@ -127,7 +127,7 @@ void loop() {
       Serial.println(fbdo.errorReason());
     }
 
-    if (Firebase.RTDB.getFloat(&fbdo, "/gps/spd")) {
+    if (Firebase.RTDB.getFloat(&fbdo, "/gps/spd")) {                    // SET YOUR DATABASE PATH HERE "gps/lat" and the typeData
       if (fbdo.dataType() == "int") {
         intValue = fbdo.floatData();
         Serial.println(intValue);
