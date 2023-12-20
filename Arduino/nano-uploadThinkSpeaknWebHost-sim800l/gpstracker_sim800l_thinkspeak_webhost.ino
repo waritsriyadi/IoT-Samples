@@ -1,3 +1,5 @@
+// THIS PROJECT WAS MADE BY github.com/waritsriyadi
+
 #include <SoftwareSerial.h>
 #include <TinyGPS++.h>
 
@@ -5,17 +7,19 @@ SoftwareSerial sim800lSerial(10, 11);  // RX, TX for SIM800L
 SoftwareSerial gpsSerial(3, 2);        // RX, TX for GPS
 TinyGPSPlus gps;
 
-const char* SERVER_NAME = "motorcylealertsystem.000webhostapp.com";
+const char* SERVER_NAME = "YOUR_WEBHOST000_WEB"; // Example: motorcylealertsystem.000webhostapp.com
 const int SERVER_PORT = 80;
 const String API_PATH = "/gpsdata.php";
-const char* thingspeakApiKey = "OV1HKGD2JYS96CIG";
+const char* thingspeakApiKey = "YOUR_API_KEY";
 
 void setup() {
   Serial.begin(9600);
   sim800lSerial.begin(9600);
   gpsSerial.begin(9600);
+
   sendATcommand("AT", "OK", 2000);
   sendATcommand("AT+CMGF=1", "OK", 2000);
+
   delay(1000);
 }
 
@@ -75,7 +79,7 @@ void uploadToThingSpeak(const String& latitude, const String& longitude, const S
 void uploadToWebhost(const String& latitude, const String& longitude) {
   Serial.println("Uploading to Webhost000..");
   String url, temp;
-  url = "http://motorcylealertsystem.000webhostapp.com/gpsdata.php?lat=";
+  url = "http://YOUR_WEBHOST000_WEB/gpsdata.php?lat="; // Example: http://motorcylealertsystem.000webhostapp.com/gpsdata.php?lat=
   url += latitude;
   url += "&lng=";
   url += longitude;
@@ -85,7 +89,7 @@ void uploadToWebhost(const String& latitude, const String& longitude) {
   sendATcommand("AT+CFUN=1", "OK", 2000);
   sendATcommand("AT+CGATT=1", "OK", 2000);
   sendATcommand("AT+SAPBR=3,1,\"Contype\",\"GPRS\"", "OK", 2000);
-  sendATcommand("AT+SAPBR=3,1,\"APN\",\"m2mautotronic\"", "OK", 2000);
+  sendATcommand("AT+SAPBR=3,1,\"APN\",\"YOUR_APN_HERE_DONT_FORGET_THIS\"", "OK", 2000);
   sendATcommand("AT+SAPBR=1,1", "OK", 2000);
   sendATcommand("AT+HTTPINIT", "OK", 2000);
   sendATcommand("AT+HTTPPARA=\"CID\",1", "OK", 1000);
@@ -122,3 +126,5 @@ void sendATcommand(const char* command, const char* expectedResponse, int timeou
     }
   }
 }
+
+// THIS PROJECT WAS MADE BY github.com/waritsriyadi
